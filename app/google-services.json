@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "990696175882",
+    "firebase_url": "https://find-friend-48ad6.firebaseio.com",
+    "project_id": "find-friend-48ad6",
+    "storage_bucket": "find-friend-48ad6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:990696175882:android:3946e12ca04df4a1",
+        "android_client_info": {
+          "package_name": "masterung.androidthai.in.th.findfriend"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "990696175882-56f7cpgdlchqrktl80b90t0g0vtlamta.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "masterung.androidthai.in.th.findfriend",
+            "certificate_hash": "99f1de59cbbb9f0ab27aeb63c596235bc843b92a"
+          }
+        },
+        {
+          "client_id": "990696175882-siorbbvta3urfrl0sjn6eg586j3bv3or.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCsUQjaLt8xp86kAFV0RD7mn6Os4_r5eGw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "990696175882-siorbbvta3urfrl0sjn6eg586j3bv3or.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
