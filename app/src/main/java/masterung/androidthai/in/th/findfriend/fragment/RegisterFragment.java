@@ -20,11 +20,14 @@ import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -32,6 +35,7 @@ import com.google.firebase.storage.UploadTask;
 import masterung.androidthai.in.th.findfriend.MainActivity;
 import masterung.androidthai.in.th.findfriend.R;
 import masterung.androidthai.in.th.findfriend.utility.MyAlert;
+import masterung.androidthai.in.th.findfriend.utility.UserModel;
 
 public class RegisterFragment extends Fragment {
 
@@ -227,6 +231,32 @@ public class RegisterFragment extends Fragment {
 
         uidUserString = firebaseUser.getUid();
         Log.d("5MayV1", "uidUser ==> " + uidUserString);
+
+        updateNewUserToFirebase();
+
+    }
+
+    private void updateNewUserToFirebase() {
+
+        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+        DatabaseReference databaseReference = firebaseDatabase.getReference()
+                .child(uidUserString);
+
+        UserModel userModel = new UserModel(nameString, pathAvataString);
+
+        databaseReference.setValue(userModel).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                Log.d("5MayV1", "Success Update");
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.d("5MayV1", "Cannot Update ==> " + e.toString());
+            }
+        });
+
+
 
 
     }
