@@ -2,6 +2,7 @@ package masterung.androidthai.in.th.findfriend;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import masterung.androidthai.in.th.findfriend.fragment.MainFragment;
 
@@ -20,5 +21,12 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
+    }   // Main Method
+
+    @Override
+    public void onBackPressed() {
+        //super.onBackPressed();
+        Toast.makeText(MainActivity.this, "Cannot Undo",
+                Toast.LENGTH_SHORT).show();
     }
-}
+}   // Main Class
