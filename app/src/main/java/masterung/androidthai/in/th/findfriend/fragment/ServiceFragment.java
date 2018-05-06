@@ -12,6 +12,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -33,7 +34,8 @@ public class ServiceFragment extends Fragment {
 
     private String displayNameString, uidUserLoggedinString;
     private ArrayList<String> uidFriendStringArrayList,
-            friendStringArrayList, pathAvaraStringArrayList;
+            friendStringArrayList, pathAvaraStringArrayList,
+            uidForDetailStringsStringArrayList;
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -103,6 +105,7 @@ public class ServiceFragment extends Fragment {
 
                     friendStringArrayList.add(userModel.getNameString());
                     pathAvaraStringArrayList.add(userModel.getPathAvataString());
+                    uidForDetailStringsStringArrayList.add(uidFriendStringArrayList.get(ints[0]));
 
                     Log.d("6MayV3", "Friend in Loop ==> " + friendStringArrayList.toString());
 
@@ -116,6 +119,26 @@ public class ServiceFragment extends Fragment {
 
                         ListView listView = getView().findViewById(R.id.listViewFriend);
                         listView.setAdapter(friendAdapter);
+
+                        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                                Log.d("6MayV4", "Click Friend ==> " + friendStringArrayList.get(position));
+
+                                getActivity()
+                                        .getSupportFragmentManager()
+                                        .beginTransaction()
+                                        .replace(R.id.contentMainFragment,
+                                                DetailFragment.detailInstance(
+                                                        uidForDetailStringsStringArrayList.get(position),
+                                                        friendStringArrayList.get(position),
+                                                        pathAvaraStringArrayList.get(position)))
+                                        .addToBackStack(null)
+                                        .commit();
+
+                            }
+                        });
 
                     }   //if
 
