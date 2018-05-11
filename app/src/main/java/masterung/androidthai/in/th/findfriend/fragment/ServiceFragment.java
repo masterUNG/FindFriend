@@ -24,6 +24,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 import masterung.androidthai.in.th.findfriend.MainActivity;
 import masterung.androidthai.in.th.findfriend.R;
@@ -34,8 +36,7 @@ public class ServiceFragment extends Fragment {
 
     private String displayNameString, uidUserLoggedinString;
     private ArrayList<String> uidFriendStringArrayList,
-            friendStringArrayList, pathAvaraStringArrayList,
-            uidForDetailStringsStringArrayList;
+            friendStringArrayList, pathAvaraStringArrayList;
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -71,7 +72,7 @@ public class ServiceFragment extends Fragment {
                     }
 
                 }   // for
-                Log.d("6MayV1", "uidFriend ==> " + uidFriendStringArrayList.toString());
+                Log.d("5MayV1", "uidFriend ==> " + uidFriendStringArrayList.toString());
 
                 createListView();
 
@@ -90,61 +91,29 @@ public class ServiceFragment extends Fragment {
 
         final int[] ints = new int[]{0};
 
-        for (int i=0 ; i<uidFriendStringArrayList.size(); i+=1) {
+        for (String childString : uidFriendStringArrayList) {
 
+            Log.d("5MayV1", "childString " + childString);
             FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
             DatabaseReference databaseReference = firebaseDatabase.getReference()
-                    .child(uidFriendStringArrayList.get(i));
+                    .child(childString);
 
             databaseReference.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
 
-                    Log.d("6MayV2", "dataSanpshop ==> " + dataSnapshot.toString());
-                    UserModel userModel = dataSnapshot.getValue(UserModel.class);
+                    Map map = (Map) dataSnapshot.getValue();
+                    friendStringArrayList.add(String.valueOf(map.get("nameString")));
+                    pathAvaraStringArrayList.add(String.valueOf(map.get("pathAvataString")));
 
-                    friendStringArrayList.add(userModel.getNameString());
-                    pathAvaraStringArrayList.add(userModel.getPathAvataString());
-                    uidForDetailStringsStringArrayList.add(uidFriendStringArrayList.get(ints[0]));
+                    Log.d("5MayV1", "friendArray ==> " + friendStringArrayList.toString());
 
-                    Log.d("6MayV3", "Friend in Loop ==> " + friendStringArrayList.toString());
-
-                    if (ints[0] == (uidFriendStringArrayList.size()-1)) {
-
-                        Log.d("6MayV3", "Friend ==> " + friendStringArrayList.toString());
-                        Log.d("6MayV3", "Path ==> " + pathAvaraStringArrayList.toString());
-
-                        FriendAdapter friendAdapter = new FriendAdapter(getActivity(),
-                                friendStringArrayList, pathAvaraStringArrayList);
-
-                        ListView listView = getView().findViewById(R.id.listViewFriend);
-                        listView.setAdapter(friendAdapter);
-
-                        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                            @Override
-                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                                Log.d("6MayV4", "Click Friend ==> " + friendStringArrayList.get(position));
-
-                                getActivity()
-                                        .getSupportFragmentManager()
-                                        .beginTransaction()
-                                        .replace(R.id.contentMainFragment,
-                                                DetailFragment.detailInstance(
-                                                        uidForDetailStringsStringArrayList.get(position),
-                                                        friendStringArrayList.get(position),
-                                                        pathAvaraStringArrayList.get(position)))
-                                        .addToBackStack(null)
-                                        .commit();
-
-                            }
-                        });
-
-                    }   //if
-
+                    if (ints[0] == uidFriendStringArrayList.size()-1) {
+                        showListView();
+                    }
                     ints[0] += 1;
+                }   // onDataChange
 
-                }
 
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
@@ -152,12 +121,25 @@ public class ServiceFragment extends Fragment {
                 }
             });
 
-        }   // for
 
 
+        }   //for
 
 
     }   // createListView
+
+    private void showListView() {
+
+        Log.d("12MayV1", "StringArray ==> " + friendStringArrayList.toString());
+        Log.d("12MayV1", "PathStringArray ==> " + pathAvaraStringArrayList.toString());
+
+        FriendAdapter friendAdapter = new FriendAdapter(getActivity(),
+                friendStringArrayList, pathAvaraStringArrayList);
+        ListView listView = getView().findViewById(R.id.listViewFriend);
+        listView.setAdapter(friendAdapter);
+
+
+    }
 
 
     @Override
