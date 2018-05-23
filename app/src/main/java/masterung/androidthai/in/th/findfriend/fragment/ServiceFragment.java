@@ -188,6 +188,7 @@ public class ServiceFragment extends Fragment {
         ((MainActivity) getActivity()).getSupportActionBar().setSubtitle(displayNameString + " Signed");
 
 
+
         setHasOptionsMenu(true);
     }
 
