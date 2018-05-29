@@ -1,9 +1,11 @@
 package masterung.androidthai.in.th.findfriend.fragment;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,7 +15,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -22,6 +26,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -137,6 +142,46 @@ public class ServiceFragment extends Fragment {
                 friendStringArrayList, pathAvaraStringArrayList);
         ListView listView = getView().findViewById(R.id.listViewFriend);
         listView.setAdapter(friendAdapter);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                Log.d("12MayV1", "You Click ==> " + friendStringArrayList.get(position));
+                showClickListView(friendStringArrayList.get(position), pathAvaraStringArrayList.get(position));
+
+            }
+        });
+
+
+    }
+
+    private void showClickListView(String nameString, String pathURLstring) {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setCancelable(false);
+        builder.setTitle("You Click ?");
+
+        LayoutInflater layoutInflater = getActivity().getLayoutInflater();
+        View view = layoutInflater.inflate(R.layout.layout_show_click, null);
+
+        ImageView imageView = view.findViewById(R.id.imvShowAvata);
+        Picasso.get().load(pathURLstring).into(imageView);
+
+        TextView textView = view.findViewById(R.id.txtShowName);
+        textView.setText(nameString);
+
+        builder.setView(view);
+
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+
+        builder.show();
+
 
 
     }
