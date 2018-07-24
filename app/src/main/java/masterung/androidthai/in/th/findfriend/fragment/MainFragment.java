@@ -28,15 +28,14 @@ public class MainFragment extends Fragment{
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-//        Check Status
-        checkStatus();
-
 //        Register Controller
         registerController();
 
+//        Check Status
+        checkStatus();
+
 //        SignIn Controller
         signInController();
-
 
     }   // Main Method
 

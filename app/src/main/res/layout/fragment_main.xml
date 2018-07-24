@@ -6,60 +6,38 @@
 
     <!--Content-->
     <LinearLayout
-        android:background="@drawable/login_masterung"
         android:layout_margin="@dimen/margin1"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+        <ImageView
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/logo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
         <!--email-->
-        <LinearLayout
-            android:orientation="horizontal"
+        <EditText
+            android:background="@drawable/email"
+            android:id="@+id/edtEmail"
+            android:inputType="textEmailAddress"
+            android:hint="@string/email"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <!--Icon-->
-            <ImageView
-                android:layout_gravity="center_vertical"
-                android:src="@drawable/ic_action_email"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-            <!--TextField-->
-            <EditText
-                android:id="@+id/edtEmail"
-                android:inputType="textEmailAddress"
-                android:hint="@string/email"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-        </LinearLayout>
+            android:layout_height="wrap_content" />
 
         <!--password-->
-        <LinearLayout
-            android:orientation="horizontal"
+        <EditText
+            android:background="@drawable/password"
+            android:id="@+id/edtPassword"
+            android:inputType="textPassword"
+            android:hint="@string/password"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <!--Icon-->
-            <ImageView
-                android:layout_gravity="center_vertical"
-                android:src="@drawable/ic_action_password"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-            <!--TextField-->
-            <EditText
-                android:id="@+id/edtPassword"
-                android:inputType="textPassword"
-                android:hint="@string/password"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-        </LinearLayout>
+            android:layout_height="wrap_content" />
 
         <!--Login Button-->
         <Button
+            android:background="@drawable/button_white"
             android:id="@+id/btnSignIn"
             android:text="Sign In"
             android:layout_width="match_parent"

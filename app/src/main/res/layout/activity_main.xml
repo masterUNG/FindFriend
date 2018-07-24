@@ -8,7 +8,7 @@
 
     <ImageView
         android:scaleType="centerCrop"
-        android:src="@drawable/bg4"
+        android:src="@drawable/bg_frog"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
